@@ -1,0 +1,27 @@
+{
+  "name": "preact-to-wordpress",
+  "version": "0.5.0",
+  "description": "Turns a preact build folder into a wordpress theme",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "preact",
+    "wordpress",
+    "theme",
+    "spa"
+  ],
+  "author": "Eduardo Orive <edorka@gmail.com> (https://github.com/Edorka)",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^26.4.0"
+  },
+  "bin": {
+    "build-theme": "./cli.js"
+  },
+  "dependencies": {
+    "fs-extra": "^9.0.1",
+    "inquirer": "^7.3.3"
+  }
+}
