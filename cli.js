@@ -3,7 +3,8 @@
 const path = require('path');
 const fs = require('fs');
 const fse = require('fs-extra');
-const inquirer = require('inquirer');
+const retrieveTerms = require('./terms');
+const buildStyle = require('./style-css.template');
 
 const loadIndex = (folder) => {
     const target = path.join(folder, 'index.html')
@@ -34,82 +35,6 @@ const copyResources = async (source, files, target) => {
     console.log(`completed copy of ${files.length} files`);
 }
 
-const buildStyle = ({name='Preact SPA', version='', author='Unknown', license='MIT'}={}) => {
-    const result = `
-/*
-Theme Name: ${name}
-Author: ${author}
-Author URI: https://github.com/your-github
-Description: Create React WP Themes with no build configuration
-Version: ${version}
-License: ${license}
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Tags: generated
-Text Domain: your-domain
-
-This theme, like WordPress, is licensed under the GPL.
-*/`
-    return result;
-}
-
-const getPackageInfo = async () => {
-    const info = require(path.join(process.cwd(), 'package.json'));
-    return info;
-}
-
-const _INFO_DEFAULTS = {
-    name: 'PreactSPA',
-    author: 'Your Name <email> (web.page)',
-    version: '0.0.1',
-    license: 'GPL'
-}
-
-const askExecutionParams = async () => {
-    return inquirer
-      .prompt([
-        {
-          name: 'source',
-          message: 'Where is the build output of the App?',
-          default: 'build',
-        },
-        {
-          name: 'target',
-          message: 'Where to store the theme?',
-          default: 'wp-theme',
-        },
-      ]);
-} 
-
-const relativeToCWD = ({source, target}) => ({
-    source:  path.join(process.cwd(), source),
-    target:  path.join(process.cwd(), target),
-})
-
-const fulfillQuestions = async ({name, author, license, version}=_INFO_DEFAULTS) => {
-    return inquirer
-      .prompt([
-        {
-          name: 'name',
-          message: 'Name of the WP-Theme?',
-          default: name,
-        },
-        {
-          name: 'author',
-          message: 'Author?',
-          default: author,
-        },
-        {
-          name: 'version',
-          message: 'Version?',
-          default: version,
-        },
-        {
-          name: 'license',
-          message: 'License?',
-          default: license,
-        },
-      ]);
-}
 
 const buildIndexFrom = async (source) => {
     const content = await loadIndex(source);
@@ -119,8 +44,7 @@ const buildIndexFrom = async (source) => {
 }
 
 const perform = async () => {
-    const {source, target} = await askExecutionParams().then(relativeToCWD);
-    const information = await fulfillQuestions(getPackageInfo());
+    const {source, target, information} = await retrieveTerms();
     const {occurrences, result} = await buildIndexFrom(source);
     await save(result, path.join(target, 'index.php'))
     console.log('generated index.php.');
@@ -128,4 +52,5 @@ const perform = async () => {
     console.log('style.css completed.');
     await copyResources(source, occurrences, target);
 }
+
 perform();
