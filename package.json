@@ -1,5 +1,5 @@
 {
-  "name": "preact-to-wordpress",
+  "name": "preact-cli-wp-theme",
   "version": "0.5.0",
   "description": "Turns a preact build folder into a wordpress theme",
   "main": "index.js",
