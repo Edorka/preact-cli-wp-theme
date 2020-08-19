@@ -1,4 +1,10 @@
-# preact-cli-wp-theme
+# preact-cli-wp-theme [deprecated]
+
+I just wrote a tutorial with simple instructions. here: https://dev.to/edorka/preact-spa-into-a-wordpress-theme-lge
+
+I will only maintain this plugin some people asks for it.
+
+Old readme below: ======================================
 
 Creates a Wordpress theme from a [Preact-cli](https://github.com/preactjs/preact-cli) generated application.
 
