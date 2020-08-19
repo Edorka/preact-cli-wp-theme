@@ -2,7 +2,7 @@
 
 I just wrote a tutorial with simple instructions. here: https://dev.to/edorka/preact-spa-into-a-wordpress-theme-lge
 
-I will only maintain this plugin some people asks for it.
+I will only maintain this plugin if some people asks for it.
 
 Old readme below: ======================================
 
